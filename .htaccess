@@ -1,0 +1,11 @@
+#SEO optimization, redirect all to same url:
+Options +FollowSymLinks -ExecCGI -Indexes
+#PERMALINKS:
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /pioneer/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php$1 [L,NC]
+</IfModule>

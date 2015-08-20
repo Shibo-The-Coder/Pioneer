@@ -1,0 +1,241 @@
+/* 
+    Created on : 26-Jun-2015, 18:40:29
+    Author     : ShiboTheCoder <shehabattia96@gmail.com>
+*/
+/******************/
+/*Elements*/
+/*****************/
+body{/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fefcea+0,f1da36+100;Gold+3D */
+background: #fefcea; /* Old browsers */
+background: -moz-linear-gradient(top,  #fefcea 0%, #f1da36 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefcea), color-stop(100%,#f1da36)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #fefcea 0%,#f1da36 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #fefcea 0%,#f1da36 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #fefcea 0%,#f1da36 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #fefcea 0%,#f1da36 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#f1da36',GradientType=0 ); /* IE6-9 */
+padding:0px;
+margin:0px;
+}
+form>.form_input{} 
+form>.form_text_input{}
+form>.form_password_input{}
+form>.form_checkbox_input{}
+form>.form_submit_input{}
+
+/******************/
+/*Classes and IDs*/
+/*****************/
+
+/*All Pages*/
+#header{
+    margin: 0px;
+    text-align: center;
+    height: auto;
+    width: 100%;
+}
+#header #welcome_text{
+    margin:0px;
+    margin-right: 20%;
+    
+}
+#header>h1{
+    padding:0px;
+}
+#header .logo{
+    font-size:100px;
+    margin: 0px;
+    padding:0px;
+}
+#content{
+    margin: 0px;
+    height:auto;
+
+}
+#content:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+#user{
+    text-align: right;
+}
+#navigation>ul{
+    text-align: left;
+}
+#navigation>ul>li>a{
+    text-decoration: none;
+    color:blue;
+}
+#navigation>ul>li>a:hover{
+    color:black;
+    font-size:larger;
+}
+#navigation>ul>li{
+    display: inline;
+    padding: 6px 5px 2px 5px;
+    margin-right:20px;
+}
+footer{
+    clear:left;
+    margin-top: 30px;
+    text-align:center;
+}
+.color_important_gradient{/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff0000+0,ea2c2c+13,a39e0b+45,6cb233+100 */
+background: #ff0000; /* Old browsers */
+background: -moz-linear-gradient(top,  #ff0000 0%, #ea2c2c 13%, #a39e0b 45%, #6cb233 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff0000), color-stop(13%,#ea2c2c), color-stop(45%,#a39e0b), color-stop(100%,#6cb233)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ff0000 0%,#ea2c2c 13%,#a39e0b 45%,#6cb233 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ff0000 0%,#ea2c2c 13%,#a39e0b 45%,#6cb233 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ff0000 0%,#ea2c2c 13%,#a39e0b 45%,#6cb233 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ff0000 0%,#ea2c2c 13%,#a39e0b 45%,#6cb233 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#6cb233',GradientType=0 ); /* IE6-9 */
+
+}
+/*Home Page*/
+#featured{
+    padding:20px;
+}
+#featured>div{
+    display:none;
+    margin: 0px 0px 0px 10%;
+}
+#featured>ul{
+}
+#featured>ul>li>a{
+    text-decoration: none;
+    color:black;
+}
+#featured>ul>li>a:hover{
+    font-size:larger;
+}
+#featured>ul>li{
+    display: inline;
+    padding: 6px 5px 2px 5px;
+    border-radius: 25px;
+    background-color:#ff3019;
+    margin-right:20px;
+}
+#featured>ul>li:hover{
+    background-color:orange;
+}
+#featured>div>div.results_container{
+    float:left;
+    padding:30px;
+}
+#featured>div>div.results_container:hover{
+    opacity: 0.7;
+    background-color:aquamarine; 
+}
+
+/*Posts Page*/
+//Container that holds a post's title, body, etc..'
+.post_container{
+    
+}
+//Title of a post
+.post_title{
+    
+}
+//Date and author of a post
+.post_infoBox{
+    
+}
+//Element in the infoBox above
+.post_infoBox_element{
+    
+}
+//Body/Main Text of a post
+.post_body{
+    
+}
+
+/*Comment/Reply form*/
+//Container holding all of textarea and submit button
+.post_replyBox{
+    
+}
+//Textarea to type reply
+.post_replyTextArea{
+    
+}
+//Submit button for reply
+.post_submitButton{
+    
+}
+
+/*Comments of a post*/
+//Container holding all the comments, the title is h5 element
+.comment_container{
+    
+}
+//Container holding individual comment
+.comment_box{
+    
+}
+//Comment header, which shows who the comment is by and what is the date
+.comment_header{
+    
+}
+//Individual comment's' content
+.comment_content{
+    
+}
+
+/*Seach Page Results*/
+//Container which holds individual search results:
+.searchedPost_container{
+    
+}
+//Title of post in the search result
+.searchedPost_title{
+    
+}
+//Info Box which tells you the issue, author and date
+.searchedPost_infoBox{
+    
+}
+//Element in the above mentioned info box
+.searchedPost_infoBox_element{
+    
+}
+//Body of searched post. Limited to a certain number of characters.
+.searchedPost_body{
+    
+}
+
+/*User Page*/
+//Container for whole user box
+.user_container{
+    background-color:black;
+}
+//Name of user displayed at top of page
+.user_name{
+    
+}
+//Container containing all user info
+.user_infoBox{
+    background-color:yellow;
+    
+}
+//Elements inside info box mentioned above
+.user_infoBox_element{
+}
+.user_infoBox_element{
+    display:block;
+}
+
+/*Admin Page*/
+#admin_navigation{
+    float: left;
+}
+#admin_content{
+}
+.admin_box{
+    float:left;
+    margin:15px;
+    border: solid 1px black;
+}
