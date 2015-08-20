@@ -13,7 +13,7 @@
         </div>
     </div>
     <script>
-        $lasttab = "#latestIssue";
+        $lasttab = "#staffpicks";
         $('#staffpicks').show();
         $('.featured_tab').click(function() {
             $($lasttab).hide();

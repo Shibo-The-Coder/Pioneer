@@ -11,7 +11,7 @@
    | getbyName                     |
  * -----------------------------
  *  */
-require_once 'config.php';
+require_once './config.php';
 //Formats a query statement then executes it using the Communicate class's method query().
 function prepare_query($statement = "", $array = [], $limit = DEFAULT_LIMIT, $offset = DEFAULT_OFFSET)
 {
@@ -22,7 +22,7 @@ function prepare_query($statement = "", $array = [], $limit = DEFAULT_LIMIT, $of
 function prepare_query_limitOffset($limit = DEFAULT_LIMIT, $offset = DEFAULT_OFFSET)
 {
     //If limit = 0, return ALL rows.
-    $logic_limit = $limit==0? 18446744073 : $limit;
+    $logic_limit = $limit==0? 18446744073 : $limit; //I don't like this. Look into it later.
     return " LIMIT ".$logic_limit." OFFSET ".$offset ;
 }
 //Fetches rows after query is executed.

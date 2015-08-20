@@ -14,9 +14,9 @@ __autoload(); //Loads all classes.
 $conn = new Communicate(); //Creates a PDO connection to the db.
 $user = new User(); //Creates a user object
 getSiteInfo(); //Fetches basic site information from db.
-define( "TEMPLATE_PATH", "/templates/".TEMPLATE."/" );
-define("TEMPLATEDIR", BASEDIR.TEMPLATE_PATH);
-if (is_dir('.'.TEMPLATE_PATH)) {
+define("TEMPLATEDIR", "/templates/".TEMPLATE."/");
+define( "TEMPLATE_PATH", BASEDIR.TEMPLATEDIR); //TEMPLATE is a constant defined by general_function.php::getSiteInfo();
+if (is_dir(TEMPLATE_PATH)) {
     include TEMPLATE_PATH.'index.php';
 } else {
     elog("Template not found!");

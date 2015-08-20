@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once './config.php';
 /*
  * @function __autoload: includes classes in the CLASS_PATH.
  */

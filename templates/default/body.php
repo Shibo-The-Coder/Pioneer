@@ -3,10 +3,10 @@
 ?>
 <div id="navigation">
     <ul>
-        <li><a href="<?php echo BASEDIR; ?>">Home</a></li>
-        <li><a href="<?php echo BASEDIR."contactus/"; ?>">Contact Us</a></li>
+        <li><a href="<?php echo HOME_PAGE_URL; ?>">Home</a></li>
+        <li><a href="<?php echo CONTACTUS_PAGE_URL; ?>">Contact Us</a></li>
         <?php if (verifyRequestWithUserRole("adminDash")) { //Verify permission to access dash. ?>
-        <li><a href="<?php echo BASEDIR."staff/"; ?>">Staff Page</a></li>
+        <li><a href="<?php echo ADMIN_PAGE_URL; ?>">Staff Page</a></li>
         <?php }?>        
     </ul>
 </div>

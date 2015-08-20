@@ -22,7 +22,7 @@ function putUserMessage(){
  */
 function translateHomePage()
 {
-    $pageData = file_get_contents(BASEDIR.TEMPLATE_PATH.'home.php');
+    $pageData = file_get_contents(TEMPLATE_PATH.'home.php');
     echo strtr($pageData, 
         ['{staffpicks_posts}' => translateSearchPage(get_table_posts_staffpicks(5)),
         '{newarticles_posts}' => translateSearchPage(get_table_posts(5))
@@ -37,16 +37,16 @@ function translateSearchPage($postData)
     global $user;
     $resultsArray = [];
     if (count($postData) > 0) { //There are multiple posts requested, so display results only.
-        $pageData = file_get_contents(BASEDIR.TEMPLATE_PATH.'search.php');
+        $pageData = file_get_contents(TEMPLATE_PATH.'search.php');
         foreach ($postData as $searchedPost) {
             $date = dateToURI($searchedPost['dateCreated']);
             $author = $user->getUser($searchedPost['authorID']);
             $resultsArray[] =  strtr($pageData, 
                 ['{post_id}' => $searchedPost['ID'],
-                '{post_url}' => BASEDIR.$date.$searchedPost['name'],
+                '{post_url}' => SITEURL.$date.$searchedPost['name'],
                 '{post_title}' => $searchedPost['title'],
                 '{issue_name}' => get_table_issues_byName($searchedPost['issueID'])['name'],
-                '{author_url}' => BASEDIR."user/".$author['username'],
+                '{author_url}' => SITEURL."user/".$author['username'],
                 '{author_firstName}' => $author['firstName'],
                 '{author_lastName}' => $author['lastName'],
                 '{post_date}' => date("Y-m-d", strtotime($searchedPost['dateCreated'])),
@@ -66,16 +66,16 @@ function translatePostsPage($postData)
 {
     global $user;
     if (count($postData) == 1) { //There are multiple posts requested, so display results only.
-        $pageData = file_get_contents(BASEDIR.TEMPLATE_PATH.'posts.php');
+        $pageData = file_get_contents(TEMPLATE_PATH.'posts.php');
         $post = $postData[0];
         $date = dateToURI($post['dateCreated']);
         $author = get_table_users_byID($post['authorID'])[0];
         return strtr($pageData, 
             ['{post_id}' => $post['ID'],
-            '{post_url}' => BASEDIR.$date.$post['name'],
+            '{post_url}' => SITEURL.$date.$post['name'],
             '{post_title}' => $post['title'],
             '{issue_name}' => get_table_issues_byName($post['issueID'])['name'],
-            '{author_url}' => BASEDIR."user/".$author['username'],
+            '{author_url}' => SITEURL."user/".$author['username'],
             '{author_firstName}' => $author['firstName'],
             '{author_lastName}' => $author['lastName'],
             '{post_date}' => date("Y-m-d", strtotime($post['dateCreated'])),
@@ -95,7 +95,6 @@ function translatePostsPage($postData)
  */
 function putPostComments($postID)
 {
-    $counter = 1;
     $comments = get_table_comments_byPostID($postID);
     if ($comments != false && count($comments) > 0) {
         global $user;
@@ -124,7 +123,7 @@ function putPostComments($postID)
 function translateUserPage($userData)
 {
     if ($userData!=false) {
-        $pageData = file_get_contents(BASEDIR.TEMPLATE_PATH.'user.php');
+        $pageData = file_get_contents(TEMPLATE_PATH.'user.php');
         $user = $userData;
         return strtr($pageData, 
             [
