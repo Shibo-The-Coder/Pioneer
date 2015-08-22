@@ -6,7 +6,8 @@ full capabilities viewPosts/editPosts/newPosts/
  * adminDash/editDash/moderate/addUsers/editUsers/removeUsers/banUsers/
  * adminPosts/adminUsers/adminComments/adminSettings/
  *  */
-include_once '/admin_functions.php';
+include_once BASEDIR.'admin_functions.php';
+define("ADMIN_TEMPLATE_PATH",TEMPLATE_PATH."admin/");
 if (verifyRequestWithUserRole("adminDash")) { //Verify permission to access dash. ?>
 <div id="admin_navigation">
     <ul>
@@ -52,17 +53,17 @@ if (verifyRequestWithUserRole("adminDash")) { //Verify permission to access dash
 </div>
 <?php 
     if ($adminPage == "posts") { 
-          include "/admin/posts.php";
+          include ADMIN_TEMPLATE_PATH."posts.php";
       } elseif ($adminPage == "comments") { 
-          include "/admin/comments.php";
+          include ADMIN_TEMPLATE_PATH."comments.php";
       } elseif ($adminPage == "issues") { 
-          include "/admin/issues.php";
+          include ADMIN_TEMPLATE_PATH."issues.php";
       } elseif ($adminPage == "users") { 
-          include "/admin/users.php";
+          include ADMIN_TEMPLATE_PATH."users.php";
       } elseif ($adminPage == "settings") { 
-          include "/admin/settings.php";
+          include ADMIN_TEMPLATE_PATH."settings.php";
       } else {
-          include "/admin/dashboard.php";
+          include ADMIN_TEMPLATE_PATH."dashboard.php";
       } 
 } else {
     include LOGIN_PAGE_FILE;

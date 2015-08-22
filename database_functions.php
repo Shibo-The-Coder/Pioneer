@@ -702,3 +702,97 @@ function get_table_posts_collab_byPostID($ID = null)
         return false;
     }
 }
+/**************************************************************************************/
+ /**************************SIGNUP FUNCTIONS**********************************/
+ /**************************************************************************************/
+/*
+ * add_table_users - inserts a user into database table "users". Must be formatted to match database table.
+ * @param multiple - These match the columns in the table.
+ * @return boolean - true = success, false = error writing to db.
+ */
+function add_table_signup($firstName = "", $lastName = "", $email = "", $phone = "", 
+        $type = "",  $position = "", $whyinterested = "", $previousexperiences = "",$date = "NOW()")
+{
+    global $conn;
+    $ID = null;
+    $user = array(
+        $ID,
+        $firstName ,
+        $lastName , 
+        $email , 
+        $phone , 
+        $type ,  
+        $position, 
+        $whyinterested , 
+        $previousexperiences,
+        $date,
+    );
+    $query = $conn->insert("signup", $user);
+    return $query;
+}
+
+/*
+ * update_table_users_byID - Updated a user in the table Users by using its ID.
+ * @param ID int - ID of row to update.
+ * @param fields array - An array of column names formatted to match database table..
+ * @param fieldValues array - an array corresponding to array fields, of values to update.
+ * @return boolean - true = success, false = error writing to db.
+ */
+function update_table_signup_byID($ID = null, $fields = array(), $fieldValues = array())
+{
+    global $conn;
+    if (!is_null($ID)&&is_numeric($ID)) {
+        $query = $conn->update("signup", $fields, $fieldValues, "ID", $ID);
+        return $query;
+    } else {
+        return false;
+    }
+}
+/*
+ * delete_table_users_byID - Delete a user in the table Users by using its ID.
+ * @param type int - ID.
+ * @return boolean - true = success, false = error writing to db.
+ */
+function delete_table_signup_byID( $ID = null)
+{
+    global $conn;
+    if (!is_null($ID)&&is_numeric($ID)) {
+        $query = $conn->delete("signup", "ID", $ID);
+    } else {
+        $query = false;
+    }
+    return $query;
+}
+//Gets all table rows
+function get_table_signup($limit = DEFAULT_LIMIT, $offset = DEFAULT_OFFSET)
+{
+     return getRows(prepare_query('SELECT * FROM signup', array(), $limit, $offset));
+}
+/*
+* get_table_users_byID - fetches a user from the table "Users" by ID of user.
+* @param userID int - ID of user you want to get.
+* @return array - a PDO array with column names as keys. $result['column']; // returns value of column
+*/
+function get_table_signup_byID($userID = null)
+{
+    if (is_numeric($userID) && !is_null($userID)) {
+        return getRows(prepare_query('SELECT * FROM signup WHERE ID = ?', array($userID)));
+    }
+    else {
+        return false;
+    }
+}
+/*
+* get_table_users_byName - fetches a user from the table "Users" by Name of user.
+* @param userID int - ID of user you want to get.
+* @return array - a PDO array with column names as keys. $result['column']; // returns value of column
+*/
+function get_table_signup_byName($username = "")
+{
+    if ($username != "") {
+        return getRows(prepare_query('SELECT * FROM signup WHERE firstName = ? or lastName = ?', array($username,$username)));
+    }
+    else {
+        return false;
+    }
+}

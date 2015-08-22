@@ -16,7 +16,7 @@ class Communicate
     public function __construct()
     {   
         try {
-            $this->conn = new PDO(DB_NAME, DB_USERNAME, DB_PASSWORD);
+            Communicate::$conn = new PDO(DB_NAME, DB_USERNAME, DB_PASSWORD);
         } catch (PDOException $error) {
             $this->fail = true;
             echo 'Connection failed: ' . $error->getMessage();
@@ -31,7 +31,7 @@ class Communicate
     public function query($statement = null, $parameters = array())
     {
         if (!$this->fail && !is_null($statement)) {
-            $query = $this->conn->prepare($statement);
+            $query = Communicate::$conn->prepare($statement);
             $execute = $query->execute($parameters);
             return $execute==true? $query : false; //If query was executed correctly, return the PDOStatement object, else return false.
         }

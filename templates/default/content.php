@@ -2,6 +2,8 @@
 //This returns different page content depending on what is requested.
     if ($typeOfRequest == "home") {
         echo translateHomePage();
+    } elseif($typeOfRequest == "signup"){
+        include TEMPLATE_PATH."signup.php";
     } elseif($typeOfRequest == "contactus") {
         include_once TEMPLATE_PATH.'/contactus.php';
     } elseif ($typeOfRequest == "post") {

@@ -65,7 +65,8 @@ function form_getToken($name = "", $token = "")
  */
 function getURI()
 {
-    return explode("/", str_replace(BASENAME, "",$_SERVER['REQUEST_URI']));
+    $requesturi = BASENAME == "/" ? trim($_SERVER['REQUEST_URI'],"/") :  str_replace(BASENAME, "",$_SERVER['REQUEST_URI']);
+    return explode("/", $requesturi);
 }
 /*
  * @function getRequest: returns the value of a request.
@@ -103,6 +104,8 @@ function getURLTypeFromGET()
         return ['login'=>[getRequest("login"), getRequest("action")]];
     } elseif(isset($requests['contactus'])) {
         return ['contactus'=>[getRequest("contactus"), getRequest("action")]];
+    } elseif(isset($requests['signup'])) {
+        return ['signup'=>[getRequest("signup"), getRequest("action")]];
     }else {
         return false;
     }
@@ -142,6 +145,8 @@ function getURLTypeFromURI()
             return ['issue' => $url_parts];
         case 'contactus' :
             return ['contactus' => $url_parts];
+        case 'signup' :
+            return ['signup' => $url_parts];
         default :
             break;
     }

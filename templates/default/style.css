@@ -6,16 +6,7 @@
 /*Elements*/
 /*****************/
 body{/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fefcea+0,f1da36+100;Gold+3D */
-background: #fefcea; /* Old browsers */
-background: -moz-linear-gradient(top,  #fefcea 0%, #f1da36 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefcea), color-stop(100%,#f1da36)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #fefcea 0%,#f1da36 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #fefcea 0%,#f1da36 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #fefcea 0%,#f1da36 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #fefcea 0%,#f1da36 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#f1da36',GradientType=0 ); /* IE6-9 */
-padding:0px;
-margin:0px;
+background: #f9e09f;
 }
 form>.form_input{} 
 form>.form_text_input{}
@@ -33,6 +24,12 @@ form>.form_submit_input{}
     text-align: center;
     height: auto;
     width: 100%;
+    font-family: helvetica, sans-serif; 
+    color: white;
+}
+#topContainer{
+    margin-top: -16px;
+    background-color: #24486d;
 }
 #header #welcome_text{
     margin:0px;
@@ -47,9 +44,14 @@ form>.form_submit_input{}
     margin: 0px;
     padding:0px;
 }
+.slogan,#welcome_text,#header .logo,#user>h4{
+    text-shadow:#000 -5px 5px 10px;
+}
 #content{
     margin: 0px;
     height:auto;
+margin:40px;
+margin-top: 0px;
 
 }
 #content:after {
@@ -62,16 +64,19 @@ form>.form_submit_input{}
      }
 #user{
     text-align: right;
+    color:white;
 }
 #navigation>ul{
     text-align: left;
+    font-family: helvetica, sans-serif; 
+    margin-top: 16px;
 }
 #navigation>ul>li>a{
     text-decoration: none;
-    color:blue;
+    color:white;
 }
 #navigation>ul>li>a:hover{
-    color:black;
+    color:white;
     font-size:larger;
 }
 #navigation>ul>li{
@@ -79,10 +84,16 @@ form>.form_submit_input{}
     padding: 6px 5px 2px 5px;
     margin-right:20px;
 }
+#header > h4.slogan{
+    margin-top: 10px;
+    height:50px;
+}
 footer{
     clear:left;
-    margin-top: 30px;
+    color:white;
+    padding: 10px;
     text-align:center;
+    background-color: #24486d;
 }
 .color_important_gradient{/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff0000+0,ea2c2c+13,a39e0b+45,6cb233+100 */
 background: #ff0000; /* Old browsers */
@@ -238,4 +249,36 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', end
     float:left;
     margin:15px;
     border: solid 1px black;
+}
+#newSignup{text-align: left;position:relative;left:30px;}
+#newSignup>#basicinfo{position:relative;left:-40px;}
+#stockphoto{
+    width:50%;
+    float:left;
+}
+#stockphoto>img{ width:100%;height:100%;box-shadow:#000 0px 0px 25px;}
+#basicinfo{
+    padding-left:40px;
+}
+#signup > h1{
+    height:60px;
+    position: relative;
+    left:30px;
+}
+#basicinfo > tbody > tr> td{
+    font-size: 20px;
+}
+#basicinfo > tbody > tr> td> input{
+height:30px;    
+}
+#basicinfo > tbody > tr:nth-child(5) > td:nth-child(2) > select {
+    height:30px;
+    width:154px;
+}
+#newSignup > input.form_input.form_submit_input{
+    
+    position: relative;
+    left:207px;
+    top:15px;
+    height:30px;
 }

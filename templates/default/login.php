@@ -11,11 +11,11 @@ if (isset($_POST['username'])&&isset($_POST['password'])) {
     echo $logout;
 }
 if ($user->isLoggedIn) {
-    header("Location: ".BASEDIR);
+    header("Location: ".SITEURL);
 } else {
 ?>
         <h1>Login:</h1>
-        <form id="login" method="POST" action="<?php echo BASEDIR.'login/';?>">
+        <form id="login" method="POST" action="<?php echo SITEURL.'login/';?>">
         <?php form_saveToken(); ?>
         <input type="hidden" name = "login" value = 'login'/>
         Username: <input type="text" name ="username" placeholder="Username" class="form_input form_text_input"/>

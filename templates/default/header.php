@@ -1,4 +1,4 @@
-<?php 
+<?php
 include_once BASEDIR.'template_functions.php';
 /*Parse the URL for request data:*/
 $URLData = getURLData();
@@ -23,6 +23,7 @@ define("SEARCH_PAGE_URL", SITEURL."search/");
 define("USER_PAGE_URL", SITEURL."user/");
 define("LOGIN_PAGE_URL", SITEURL."login/");
 define("CONTACTUS_PAGE_URL", SITEURL."contactus/");
+define("SIGNUP_PAGE_URL", SITEURL."signup/");
 ?>
 <!DOCTYPE html>
 <html lang="en" >
