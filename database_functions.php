@@ -710,8 +710,7 @@ function get_table_posts_collab_byPostID($ID = null)
  * @param multiple - These match the columns in the table.
  * @return boolean - true = success, false = error writing to db.
  */
-function add_table_signup($firstName = "", $lastName = "", $email = "", $phone = "", 
-        $type = "",  $position = "", $whyinterested = "", $previousexperiences = "",$date = "NOW()")
+function add_table_signup($firstName = "", $lastName = "", $email = "", $phone = "",  $position = "", $whyinterested = "", $previousexperiences = "",$date = "NOW()")
 {
     global $conn;
     $ID = null;
@@ -721,7 +720,6 @@ function add_table_signup($firstName = "", $lastName = "", $email = "", $phone =
         $lastName , 
         $email , 
         $phone , 
-        $type ,  
         $position, 
         $whyinterested , 
         $previousexperiences,

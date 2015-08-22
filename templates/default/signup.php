@@ -1,15 +1,12 @@
 <?php 
- var_dump(add_table_signup("firstName", "lastName", "email", "404451", "type", "position", "whyinterested", "previousexperiences"));
 if (isset($_POST['newSignup'])) {
     $firstName = $_POST['firstName']; 
     $lastName = $_POST['lastName'];
     $email = $_POST['email']; 
     $phone =$_POST['phone']; 
-    $type = $_POST['type'];
     $position = $_POST['position'];
-    $whyinterested = $_POST['whyinterested'];
-    $previousexperiences = $_POST['previousexperiences'];
-    add_table_signup($firstName, $lastName, $email, $phone, $type, $position, $whyinterested, $previousexperiences);
+    echo $position;
+    add_table_signup($firstName, $lastName, $email, $phone, $position);
 }
     ?>   
 <div id="stockphoto">
@@ -22,22 +19,18 @@ if (isset($_POST['newSignup'])) {
         <input type="hidden" name = "newSignup" value = 'newSignup'/> 
         <h3>Basic Information:</h3>
         <table id="basicinfo">
-            <tr><td>First Name:*</td><td><input type="text" name="firstName"/></td></tr>
-            <tr><td>Last Name:*</td><td><input type="text" name="lastName"/></td></tr>
-            <tr><td>Email:*</td><td><input type="email" name="email"/></td></tr>
-            <tr><td>Phone:</td><td><input type="phone" name="phone"/></td></tr>
+            <tr><td>First Name:*</td><td><input type="text" name="firstName" autocomplete="off"/></td></tr>
+            <tr><td>Last Name:*</td><td><input type="text" name="lastName" autocomplete="off"/></td></tr>
+            <tr><td>Email:*</td><td><input type="email" name="email" autocomplete="off"/></td></tr>
+            <tr><td>Phone:</td><td><input type="phone" name="phone" autocomplete="off"/></td></tr>
                     <tr><td>I'm a</td><td>
-                            <select name="type">
-                                <option>Student</option>
-                                <option>Alum</option>
-                                <option>Staff</option
-                                <option>Other</option>
-                                Writer
-                                Photographer
-                                Copy Editor
-                                Layout Editor
-                                Web Dev
-                                Public Relations
+                            <select name="position">
+                                <option value="writer">Writer</option>
+                                <option value="photographer">Photographer</option>
+                                <option value="copyeditor">Copy Editor</option
+                                <option value="layouteditor">Layout Editor</option>
+                                <option value="publicrelations">Public Relations</option
+                                <option value="webdeveloper">Web Developer</option>
                             </select>
                 </td></tr>
         </table>

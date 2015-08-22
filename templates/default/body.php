@@ -25,7 +25,6 @@
 <div id="content">
     <?php include TEMPLATE_PATH . 'content.php'; ?>
 </div>
-<hr>
 
 <footer>
     <?php echo FOOTER_CONTENT; ?>

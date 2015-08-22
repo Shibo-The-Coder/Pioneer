@@ -7,6 +7,7 @@
 /*****************/
 body{/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fefcea+0,f1da36+100;Gold+3D */
 background: #f9e09f;
+margin:0px; 
 }
 form>.form_input{} 
 form>.form_text_input{}
@@ -30,6 +31,7 @@ form>.form_submit_input{}
 #topContainer{
     margin-top: -16px;
     background-color: #24486d;
+    clear:both;
 }
 #header #welcome_text{
     margin:0px;
@@ -94,21 +96,12 @@ footer{
     padding: 10px;
     text-align:center;
     background-color: #24486d;
-}
-.color_important_gradient{/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff0000+0,ea2c2c+13,a39e0b+45,6cb233+100 */
-background: #ff0000; /* Old browsers */
-background: -moz-linear-gradient(top,  #ff0000 0%, #ea2c2c 13%, #a39e0b 45%, #6cb233 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff0000), color-stop(13%,#ea2c2c), color-stop(45%,#a39e0b), color-stop(100%,#6cb233)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #ff0000 0%,#ea2c2c 13%,#a39e0b 45%,#6cb233 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #ff0000 0%,#ea2c2c 13%,#a39e0b 45%,#6cb233 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #ff0000 0%,#ea2c2c 13%,#a39e0b 45%,#6cb233 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #ff0000 0%,#ea2c2c 13%,#a39e0b 45%,#6cb233 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#6cb233',GradientType=0 ); /* IE6-9 */
-
+    text-shadow:#000 -5px 5px 10px;
 }
 /*Home Page*/
 #featured{
     padding:20px;
+    display:none;
 }
 #featured>div{
     display:none;
@@ -270,15 +263,39 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', end
 }
 #basicinfo > tbody > tr> td> input{
 height:30px;    
+font-size:25px;
+padding:1px;
+color: #24486D;
 }
 #basicinfo > tbody > tr:nth-child(5) > td:nth-child(2) > select {
     height:30px;
-    width:154px;
+    width:321px;
+    color: #24486D;
+    font-weight: bold;
 }
 #newSignup > input.form_input.form_submit_input{
-    
+    color:#24486D;
+    font-weight: bold;
     position: relative;
-    left:207px;
+    left:374px;
     top:15px;
-    height:30px;
+    height:35px;
+    box-shadow: #24486D 0px 0px 10px;
+}
+#comingsoon{
+    color: #24486D;
+    font-weight: bold;
+    text-align: center;
+}
+#comingsoon > p{
+    color: #000;
+    font-size:25px;
+}
+#comingsoon > p > a > img{
+    width:40px;
+    border:none;
+    box-shadow: blue 0px 0px 20px,#000 0px 0px -20px;
+}
+#comingsoon >  img{
+    box-shadow: #000 0px 0px 20px,#000 0px 0px 20px;
 }
