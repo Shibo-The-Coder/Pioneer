@@ -310,3 +310,6 @@ color: #24486D;
     height:35px;
     box-shadow: #24486D 0px 0px 10px;
 }
+#basicinfo > tbody :hover {
+    background-color: #f4d177;
+}

@@ -785,10 +785,28 @@ function get_table_signup_byID($userID = null)
 * @param userID int - ID of user you want to get.
 * @return array - a PDO array with column names as keys. $result['column']; // returns value of column
 */
-function get_table_signup_byName($username = "")
+function get_table_signup_byToken($token = "")
 {
-    if ($username != "") {
-        return getRows(prepare_query('SELECT * FROM signup WHERE firstName = ? or lastName = ?', array($username,$username)));
+    if ($token != "") {
+        return getRows(prepare_query('SELECT * FROM signup WHERE token = ?', array($token)));
+    }
+    else {
+        return false;
+    }
+}
+function get_table_signup_byTokenandID($token = "", $ID = "")
+{
+    if ($token != "" && $ID != "") {
+        return getRows(prepare_query('SELECT * FROM signup WHERE token = ? AND ID = ?', array($token, $ID)));
+    }
+    else {
+        return false;
+    }
+}
+function get_table_signup_byEmail($email = "")
+{
+    if ($email != "") {
+        return getRows(prepare_query('SELECT * FROM signup WHERE email = ?', array($email)));
     }
     else {
         return false;

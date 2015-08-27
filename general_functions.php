@@ -47,7 +47,8 @@ function form_saveToken($name = "") //Sets token to database.
     $token = md5(uniqid(rand(),true));
     echo "<input type='hidden' name = 'token' value = '$token' />";
     global $conn;
-    $conn->insert("forms", array($name, $token));   
+    $conn->insert("forms", array($name, $token));
+    return $token;
 }
 function form_getToken($name = "", $token = "")
 {
@@ -162,4 +163,20 @@ function getURLTypeFromURI()
 function dateToURI($date)
 {
     return str_replace("-", "/", substr($date, 0,10))."/";
+}
+
+/**************************************************************************************/
+/**************************EMAIL FUNCTIONS**********************************/
+/**************************************************************************************/
+
+function email($to, $subject, $body) {
+    return mail($to, $subject, $body);
+}
+function signup_email($formtoken, $userID, $userName, $email){
+    $signup_body = strtr(SIGNUP_EMAIL_BODY, 
+            ["{name}" => $userName, 
+                "{id}" =>$userID, 
+                "{token}"=>$formtoken]
+            );
+    return email($email, SIGNUP_EMAIL_TITLE, $signup_body);
 }
