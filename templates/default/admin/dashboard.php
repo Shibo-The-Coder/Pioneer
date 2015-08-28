@@ -5,8 +5,7 @@ $totalcomments = countRows(get_table_comments(0));
 $totalissues = countRows(get_table_issues(0));
 $totalcollab = countRows(get_table_posts_collab(0));
 ?>
-<div id='admin_dashboard' class='admin_container'>
-    <h1>Admin Dashboard</h1>
+    <h1 class="adminContent_header">Admin Dash</h1>
     <div id="admin_statistics" class="admin_box">
         <h2>Statistics</h2>
         <table>
@@ -43,4 +42,3 @@ $totalcollab = countRows(get_table_posts_collab(0));
             echo "</table>";
           } ?>
     </div>
-</div>

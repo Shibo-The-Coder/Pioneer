@@ -172,11 +172,11 @@ function dateToURI($date)
 function email($to, $subject, $body) {
     return mail($to, $subject, $body);
 }
-function signup_email($formtoken, $userID, $userName, $email){
-    $signup_body = strtr(SIGNUP_EMAIL_BODY, 
+function signup_complete_email($formtoken, $userID, $userName, $email){
+    $signup_body = strtr(SIGNUP_COMPLETE_EMAIL_BODY, 
             ["{name}" => $userName, 
                 "{id}" =>$userID, 
                 "{token}"=>$formtoken]
             );
-    return email($email, SIGNUP_EMAIL_TITLE, $signup_body);
+    return email($email, SIGNUP_COMPLETE_EMAIL_TITLE, $signup_body);
 }

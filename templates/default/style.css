@@ -260,13 +260,47 @@ footer{
 /*Admin Page*/
 #admin_navigation{
     float: left;
+    background-color: #24486d;
+    height:100%;
+    font-family: helvetica, sans-serif;
+    padding:10px;
+    color:white;
+    border-radius: 20px;
+    box-shadow: #000 0px 0px 20px;
+}
+#admin_navigation>ul>li>a,#admin_navigation>ul>li>ul>li>a{
+    color:white;
+}
+#admin_navigation>ul>li>a:hover,#admin_navigation>ul>li>ul>li>a:hover{
+    font-size: larger;
 }
 #admin_content{
+    margin-left:20px;
+    background-color:white;
+    float:left;
+    box-shadow: #000 0px 0px 20px;
+}
+#admin_content:after{
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
 }
 .admin_box{
     float:left;
     margin:15px;
-    border: solid 1px black;
+    padding:10px;
+    box-shadow: #24486d 0px 0px 20px;
+    border-radius:20px;
+    background-color:skyblue;
+}
+.adminContent_header{
+    text-shadow: #24486d 0px 5px 10px,#24486d 0px 5px 10px,#24486d 0px 5px 10px;
+    text-align: center;
+    cursor:default;
+    font-family: helvetica, sans-serif;
 }
 #newSignup{text-align: left;position:relative;left:30px;}
 #newSignup>#basicinfo{position:relative;left:-40px;}
@@ -309,7 +343,4 @@ color: #24486D;
     font-size: 16px;
     height:35px;
     box-shadow: #24486D 0px 0px 10px;
-}
-#basicinfo > tbody :hover {
-    background-color: #f4d177;
 }

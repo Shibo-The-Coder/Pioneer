@@ -77,9 +77,9 @@ if (isset($_POST['newSignup'])) {
         }
         add_table_signup($firstName, $lastName, $email, $phone, $position,$whyinterested,$previousexperience,$indesign_experience,$htmlcss_experience,$selfstory,$attachments,$formtoken);
         $user = get_table_signup_byToken($formtoken);
-        signup_complete_email($formtoken, $user[0]['ID'], $firstName, $email);
+        signup_email($formtoken, $user[0]['ID']);
     $submit_message = "Thanks!";
-    $firstName = ""; 
+        $firstName = ""; 
     $lastName = ""; 
     $email = ""; 
     $phone =""; 
@@ -94,36 +94,12 @@ if (isset($_POST['newSignup'])) {
 </div>
 <div id="signup">
     <h1>Be a part of Pioneer!</h1>
-    <form id="newSignup" method="POST" enctype="multipart/form-data" action="<?php echo SITEURL."signup/confirm";?>">
-        <input type="hidden" name = "newSignup" value = 'newSignup'/> 
-        <h3>Basic Information:</h3>
-        <?php echo $confirm?"<p style='color:red;'>".$submit_message."</p>":""; ?>
-        <table id="basicinfo">
-            <tr><td>First Name:*</td><td><input type="text" name="firstName" autocomplete="off" value="<?php echo $firstName;?>" style="border-color:<?php echo $firstNameError?'red':'initial';?>"/></td></tr>
-            <tr><td>Last Name:*</td><td><input type="text" name="lastName" autocomplete="off" value="<?php echo $lastName;?>" style="border-color:<?php echo $lastNameError?'red':'initial';?>"/></td></tr>
-            <tr><td>Email:*</td><td><input type="email" name="email" autocomplete="off" value="<?php echo $email;?>"style="border-color:<?php echo $emailError?'red':'initial';?>"/></td></tr>
-            <tr><td>Phone:</td><td><input type="phone" name="phone" autocomplete="off" value="<?php echo $phone;?>"style="border-color:<?php echo $phoneError?'red':'initial';?>"/></td></tr>
-                    <tr><td>I want to be a (Pick 2 max)</td><td <?php echo $positionError?"style='border: 2px ridge red'":"";?>>
-                                <?php 
-                                foreach ($possiblepositions as $positionname) {
-                                    $positionname_search = preg_replace('/\s+/','_', $positionname);
-                                    echo "<input type='checkbox' name='$positionname' ";
-                                    echo array_search($positionname_search, $position)!==false?"checked ":"";
-                                    echo ">".  ucwords($positionname)."<br>";
-                                }
-                                ?>
-                            </select>
-                </td></tr>
-                    <tr><td>Why do you want to join the Pioneer?*</td><td><textarea name="whyinterested" style="border-color:<?php echo $whyinterestedError?'red':'initial';?>"/><?php echo $whyinterested;?></textarea></td></tr>
-                    <tr><td>What previous experience do you have with a publication? (Not needed to apply but will be considered)</td><td><textarea name="previousexperience" style="border-color:<?php echo $previousexperienceError?'red':'initial';?>"/><?php echo $previousexperience;?></textarea></td></tr>
-                    <tr><td>Please upload samples of previous work, if any.</td><td>   <input type="file" name ="attachments[]" multiple="" /> </td></tr>
-                    <tr><td></td><td style="">   <input type="checkbox" name ="indesign_experience" /> Do you have experience with Indesign? </td></tr>
-                    <tr><td></td><td style="" >   <input type="checkbox" name ="htmlcss_experience" /> Do you have experience with HTML/CSS? </td></tr>
-                    
-                    <tr><td>Tell us something cool about yourself!</td><td><textarea name="selfstory" style="border-color:<?php echo $selfstoryError?'red':'initial';?>"/><?php echo $selfstoryError;?></textarea></td></tr>
-                    <tr><td style="text-align: right; padding-top: 10px;" colspan="2">    <input type="submit" name ="submit" value="Submit" class="form_input form_submit_input submit_btn"/></td></tr>
-        </table>
-    </form>
+    <!-- Change the width and height values to suit you best -->
+<div class="typeform-widget" data-url="https://shehabattia96.typeform.com/to/bMOOzy" data-text="Pioneer" style="width:100%;height:500px;"></div>
+<script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'widget.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()</script>
+    <div style="font-family: Sans-Serif;font-size: 12px;color: #999;opacity: 0.5; padding-top: 5px;">Powered by <a href="http://www.typeform.com/?utm_campaign=typeform_bMOOzy&amp;utm_source=website&amp;utm_medium=typeform&amp;utm_content=typeform-embedded&amp;utm_term=English" style="color: #999" target="_blank">Typeform</a></div>
+
+    </div>
     <div>
         
 </div>

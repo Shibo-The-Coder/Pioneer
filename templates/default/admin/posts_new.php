@@ -1,4 +1,4 @@
-    <h1>Create a new article</h1>
+    <h1 class="adminContent_header">Create a new article</h1>
     <div id="admin_posts" class="admin_box">
         <form id="newArticle" method="POST" action="<?php echo BASEDIR.'staff/posts/submit';?>">
         <?php form_saveToken("newArticle"); ?>

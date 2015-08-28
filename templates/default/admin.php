@@ -26,6 +26,7 @@ if (verifyRequestWithUserRole("adminDash")) { //Verify permission to access dash
             </ul>
         </li>
             <?php }?>
+        <div style="display:none;">
         <li>
             <?php if (verifyRequestWithUserRole("adminIssues")) { //Verify permission to access dash. ?>
             <?php echo admin_make_anchor("issues/","Issues");?>
@@ -49,23 +50,26 @@ if (verifyRequestWithUserRole("adminDash")) { //Verify permission to access dash
             <?php echo admin_make_anchor("settings/","Settings");?>
         </li>
         <?php }?>
+        </div>
     </ul>
 </div>
-<?php 
-    if ($adminPage == "posts") { 
-          include ADMIN_TEMPLATE_PATH."posts.php";
-      } elseif ($adminPage == "comments") { 
-          include ADMIN_TEMPLATE_PATH."comments.php";
-      } elseif ($adminPage == "issues") { 
-          include ADMIN_TEMPLATE_PATH."issues.php";
-      } elseif ($adminPage == "users") { 
-          include ADMIN_TEMPLATE_PATH."users.php";
-      } elseif ($adminPage == "settings") { 
-          include ADMIN_TEMPLATE_PATH."settings.php";
-      } else {
-          include ADMIN_TEMPLATE_PATH."dashboard.php";
-      } 
-} else {
-    include LOGIN_PAGE_FILE;
-}
-?>
+<div id="admin_content">
+    <?php 
+        if ($adminPage == "posts") { 
+              include ADMIN_TEMPLATE_PATH."posts.php";
+          } elseif ($adminPage == "comments") { 
+              include ADMIN_TEMPLATE_PATH."comments.php";
+          } elseif ($adminPage == "issues") { 
+              include ADMIN_TEMPLATE_PATH."issues.php";
+          } elseif ($adminPage == "users") { 
+              include ADMIN_TEMPLATE_PATH."users.php";
+          } elseif ($adminPage == "settings") { 
+              include ADMIN_TEMPLATE_PATH."settings.php";
+          } else {
+              include ADMIN_TEMPLATE_PATH."dashboard.php";
+          } 
+    } else {
+         include LOGIN_PAGE_FILE;
+    }
+    ?>
+</div>

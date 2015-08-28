@@ -1,4 +1,4 @@
-    <h1>Articles</h1>
+<h1 class="adminContent_header">Articles</h1>
     <div id="admin_posts" class="admin_box">
         <h2>Articles</h2>
         <?php if ($totalposts == 0) { echo "There are no articles in the database."; } else {
