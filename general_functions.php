@@ -170,7 +170,9 @@ function dateToURI($date)
 /**************************************************************************************/
 
 function email($to, $subject, $body) {
-    return mail($to, $subject, $body);
+    $headers = "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+    return mail($to, $subject, $body, $headers);
 }
 function signup_complete_email($formtoken, $userID, $userName, $email){
     $signup_body = strtr(SIGNUP_COMPLETE_EMAIL_BODY, 
@@ -179,4 +181,26 @@ function signup_complete_email($formtoken, $userID, $userName, $email){
                 "{token}"=>$formtoken]
             );
     return email($email, SIGNUP_COMPLETE_EMAIL_TITLE, $signup_body);
+}
+/*
+ * Function signup_reminder_email
+ * Reads all of the users in the signup table, and sends them an email.
+ */
+function signup_reminder_email() {
+    $signups = get_table_signup(0,0);
+    foreach ($signups as $person) {
+        $email = $person['email'];
+        $userName = $person['firstName']. " " . $person['lastName'];
+        $userID = $person['ID'];
+        $formtoken = $person['token'];
+    $signup_body = strtr(SIGNUP_REMINDER_EMAIL_BODY, 
+            ["{name}" => $userName, 
+                "{id}" =>$userID, 
+                "{token}"=>$formtoken]
+            );
+    if (!email($email, SIGNUP_REMINDER_EMAIL_TITLE, $signup_body)) {
+        return false;
+    }
+    }
+    return true;
 }

@@ -2,49 +2,38 @@
 //Config
 define("SIGNUP_MAX_POSITIONS", 2);
 $possiblepositions = ["writer", "photographer", "copyeditor", "layout editor", "public relations","web developer"];
-
-    $firstName = isset($_POST['firstName'])? $_POST['firstName']:""; 
-    $lastName = isset($_POST['lastName'])? $_POST['lastName']:""; 
-    $email = isset($_POST['email'])? $_POST['email']:""; 
-    $phone =isset($_POST['phone'])? $_POST['phone']:""; 
-    $position = [];
+$firstName = isset($_POST['firstName'])? $_POST['firstName']:""; 
+$lastName = isset($_POST['lastName'])? $_POST['lastName']:""; 
+$email = isset($_POST['email'])? $_POST['email']:""; 
+$phone =isset($_POST['phone'])? $_POST['phone']:""; 
+$position = [];
     foreach ($possiblepositions as $positionname) {
         $positionname = preg_replace('/\s+/','_', $positionname);
         if (isset($_POST[$positionname])){
             $position[] = $positionname;
         }
     }
-    $whyinterested = isset($_POST['whyinterested'])? $_POST['whyinterested']:"";
-    $previousexperience = isset($_POST['previousexperience'])? $_POST['previousexperience']:"";
-    $indesign_experience = isset($_POST['indesign_experience'])? $_POST['indesign_experience']:"no";
-    $htmlcss_experience = isset($_POST['htmlcss_experience'])? $_POST['htmlcss_experience']:"no";
-    $selfstory = isset($_POST['selfstory'])? $_POST['selfstory']:"";
-    $attachments = "";
-    $confirm = false;
-    //Errors - yah I know I'll use exceptions later :P
-    $firstNameError = false;
-    $lastNameError = false;
-    $emailError = false;
-    $phoneError = false;
-    $positionError = false;
-    $whyinterestedError = false;
-    $previousexperienceError = false;
-    $indesign_experienceError = false;
-    $htmlcss_experienceError = false;
-    $selfstoryError = false;
-    $attachmentsError = false;//security_file_check();
-    $submit_message = "";
-    
-    $formtoken = form_saveToken("newSignup");
-    //Fields "element" => "name" => "type" => "additional"\
-    /* Work on this later
-    $fields = [
-        "input" => ["firstName" => ["text"]],
-        "input" => ["lastName" => ["text"]],
-        "input" => ["email" => ["email"]],
-        "input" => ["phone" => ["text"]]
-    ];
-     */
+$whyinterested = isset($_POST['whyinterested'])? $_POST['whyinterested']:"";
+$previousexperience = isset($_POST['previousexperience'])? $_POST['previousexperience']:"";
+$indesign_experience = isset($_POST['indesign_experience'])? $_POST['indesign_experience']:"no";
+$htmlcss_experience = isset($_POST['htmlcss_experience'])? $_POST['htmlcss_experience']:"no";
+$selfstory = isset($_POST['selfstory'])? $_POST['selfstory']:"";
+$attachments = "";
+$confirm = false;
+//Errors - yah I know I'll use exceptions later :P
+$firstNameError = false;
+$lastNameError = false;
+$emailError = false;
+$phoneError = false;
+$positionError = false;
+$whyinterestedError = false;
+$previousexperienceError = false;
+$indesign_experienceError = false;
+$htmlcss_experienceError = false;
+$selfstoryError = false;
+$attachmentsError = false;//security_file_check();
+$submit_message = "";
+$formtoken = form_saveToken("newSignup");
 if (isset($_POST['newSignup'])) {
     $confirm = true;
     //Validate input. No need to escape html because prepared statements (using PDO).
@@ -72,18 +61,23 @@ if (isset($_POST['newSignup'])) {
     }
     if ($submit){
         $position = implode(",", $position);
-        if (isset($_FILES['attachments']) && count($_FILES['attachments'])>0) {
-            $attachments = file_upload("attachments", "signup_attachments",$formtoken);
+        if (get_table_signup_byToken($formtoken)===false) {
+            if (isset($_FILES['attachments']) && count($_FILES['attachments'])>0) {
+                $attachments = file_upload("attachments", "signup_attachments",$formtoken);
+            }
+            add_table_signup($firstName, $lastName, $email, $phone, $position,$whyinterested,$previousexperience,$indesign_experience,$htmlcss_experience,$selfstory,$attachments,$formtoken);
+            $user = get_table_signup_byToken($formtoken);
+            signup_complete_email($formtoken, $user[0]['ID'], $firstName, $email);
+            $submit_message = "Thanks!";
+        } else {
+            $submit_message = "Thanks, we've already saved your registration information!";
         }
-        add_table_signup($firstName, $lastName, $email, $phone, $position,$whyinterested,$previousexperience,$indesign_experience,$htmlcss_experience,$selfstory,$attachments,$formtoken);
-        $user = get_table_signup_byToken($formtoken);
-        signup_complete_email($formtoken, $user[0]['ID'], $firstName, $email);
-    $submit_message = "Thanks!";
     $firstName = ""; 
     $lastName = ""; 
     $email = ""; 
     $phone =""; 
     $position = ""; 
+    
     } else {
     $submit_message = "Something's not right..";
     }

@@ -279,6 +279,7 @@ footer{
     background-color:white;
     float:left;
     box-shadow: #000 0px 0px 20px;
+    width:80%;
 }
 #admin_content:after{
      visibility: hidden;

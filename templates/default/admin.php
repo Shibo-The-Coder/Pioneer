@@ -25,6 +25,7 @@ if (verifyRequestWithUserRole("adminDash")) { //Verify permission to access dash
             <?php }?>
             </ul>
         </li>
+        <li id="admin_signup"><?php echo admin_make_anchor("signup/","Sign Up");?></li>
             <?php }?>
         <div style="display:none;">
         <li>
@@ -65,9 +66,11 @@ if (verifyRequestWithUserRole("adminDash")) { //Verify permission to access dash
               include ADMIN_TEMPLATE_PATH."users.php";
           } elseif ($adminPage == "settings") { 
               include ADMIN_TEMPLATE_PATH."settings.php";
-          } else {
+          } elseif ($adminPage == "signup"){
+              include ADMIN_TEMPLATE_PATH."signup.php";
+          }else {
               include ADMIN_TEMPLATE_PATH."dashboard.php";
-          } 
+          }  
     } else {
          include LOGIN_PAGE_FILE;
     }
