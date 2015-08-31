@@ -2,22 +2,50 @@
 //Config
 define("SIGNUP_MAX_POSITIONS", 2);
 $possiblepositions = ["writer", "photographer", "copyeditor", "layout editor", "public relations","web developer"];
-$firstName = isset($_POST['firstName'])? $_POST['firstName']:"";
-$lastName = isset($_POST['lastName'])? $_POST['lastName']:"";
-$email = isset($_POST['email'])? $_POST['email']:"";
-$phone =isset($_POST['phone'])? $_POST['phone']:"";
-$position = [];
-    foreach ($possiblepositions as $positionname) {
-        $positionname = preg_replace('/\s+/','_', $positionname);
-        if (isset($_POST[$positionname])){
-            $position[] = $positionname;
+$submit_message = "";
+$returning_user = false;
+if (!isset($_POST['newSignUp'])&&$signupID!="" &&$signuptoken!="") {
+    $returning_user = get_table_signup_byTokenandID($signuptoken, $signupID);
+}
+if ($returning_user != false) {
+    $firstName = $returning_user[0]['firstName'];
+    $lastName =$returning_user[0]['lastName'];
+    $year =$returning_user[0]['year'];
+    $email = $returning_user[0]['email'];
+    $phone =$returning_user[0]['phone'];
+    $position = [];
+        foreach ($possiblepositions as $positionname) {
+            $positionname = preg_replace('/\s+/','_', $positionname);
+            $allthepositions = explode(",", $returning_user[0]['position']);
+            if (array_search($positionname,$allthepositions)){
+                $position[] = $positionname;
+            }
         }
-    }
-$whyinterested = isset($_POST['whyinterested'])? $_POST['whyinterested']:"";
-$previousexperience = isset($_POST['previousexperience'])? $_POST['previousexperience']:"";
-$indesign_experience = isset($_POST['indesign_experience'])? $_POST['indesign_experience']:"no";
-$htmlcss_experience = isset($_POST['htmlcss_experience'])? $_POST['htmlcss_experience']:"no";
-$selfstory = isset($_POST['selfstory'])? $_POST['selfstory']:"";
+    $whyinterested = $returning_user[0]['whyinterested'];
+    $previousexperience = $returning_user[0]['previousexperiences'];
+    $indesign_experience = $returning_user[0]['indesign_experience'];
+    $htmlcss_experience = $returning_user[0]['htmlcss_experience'];
+    $selfstory = $returning_user[0]['selfstory'];
+    $submit_message = "Welcome back! We've loaded your information, but be sure to attach all the files you want us to see again!";
+ } else {
+    $firstName = isset($_POST['firstName'])? $_POST['firstName']:"";
+    $lastName = isset($_POST['lastName'])? $_POST['lastName']:"";
+    $year = isset($_POST['year'])? $_POST['year']:"";
+    $email = isset($_POST['email'])? $_POST['email']:"";
+    $phone =isset($_POST['phone'])? $_POST['phone']:"";
+    $position = [];
+        foreach ($possiblepositions as $positionname) {
+            $positionname = preg_replace('/\s+/','_', $positionname);
+            if (isset($_POST[$positionname])){
+                $position[] = $positionname;
+            }
+        }
+    $whyinterested = isset($_POST['whyinterested'])? $_POST['whyinterested']:"";
+    $previousexperience = isset($_POST['previousexperience'])? $_POST['previousexperience']:"";
+    $indesign_experience = isset($_POST['indesign_experience'])? $_POST['indesign_experience']:"no";
+    $htmlcss_experience = isset($_POST['htmlcss_experience'])? $_POST['htmlcss_experience']:"no";
+    $selfstory = isset($_POST['selfstory'])? $_POST['selfstory']:"";
+ }
 $attachments = "";
 $confirm = false;
 //Errors - yah I know I'll use exceptions later :P
@@ -32,7 +60,6 @@ $indesign_experienceError = false;
 $htmlcss_experienceError = false;
 $selfstoryError = false;
 $attachmentsError = false;//security_file_check();
-$submit_message = "";
 $formtoken = form_saveToken("newSignup");
 if (isset($_POST['newSignup'])) {
     $confirm = true;
@@ -70,6 +97,7 @@ if (isset($_POST['newSignup'])) {
                 $ID = $returning_user[0]['ID'];
                 $fields =["firstName",
         "lastName", 
+         "year",
         "email", 
         "phone", 
         "position", 
@@ -80,11 +108,11 @@ if (isset($_POST['newSignup'])) {
         "selfstory",
         "attachments",
         "token"];
-                $fieldValues = [$firstName, $lastName, $email, $phone, $position,$whyinterested,$previousexperience,$indesign_experience,$htmlcss_experience,$selfstory,$attachments,$formtoken];
+                $fieldValues = [$firstName, $lastName, $year,$email, $phone, $position,$whyinterested,$previousexperience,$indesign_experience,$htmlcss_experience,$selfstory,$attachments,$formtoken];
                 update_table_signup_byID($ID, $fields, $fieldValues);
             $submit_message = "Thanks! Your information has been updated!";
             } else{            
-                add_table_signup($firstName, $lastName, $email, $phone, $position,$whyinterested,$previousexperience,$indesign_experience,$htmlcss_experience,$selfstory,$attachments,$formtoken);
+                add_table_signup($firstName, $lastName, $year, $email, $phone, $position,$whyinterested,$previousexperience,$indesign_experience,$htmlcss_experience,$selfstory,$attachments,$formtoken);
             $submit_message = "Thanks! We will contact you soon!";
             }
             $user = get_table_signup_byToken($formtoken);
@@ -94,9 +122,16 @@ if (isset($_POST['newSignup'])) {
         }
     $firstName = ""; 
     $lastName = ""; 
+    $year="";
     $email = ""; 
     $phone =""; 
-    $position = ""; 
+    $position = []; 
+    $whyinterested ="";
+$previousexperience ="";
+$indesign_experience = "no";
+$htmlcss_experience = "no";
+$selfstory = "";
+$attachments = "";
     
     } else {
     $submit_message = "Something's not right..";
@@ -115,11 +150,12 @@ if (isset($_POST['newSignup'])) {
                 <h4>What's your name?</h4> 
                 <div id='firstName' class="form_input_container"><span>First Name:*</span> <input type="text" class= "form_input_container_input" name="firstName" autocomplete="off" value="<?php echo $firstName;?>" style="border-color:<?php echo $firstNameError?'red':'initial';?>"/></div>
                 <div id='lastName' class="form_input_container"><span>Last Name:*</span><input type="text" class= "form_input_container_input"  name="lastName" autocomplete="off" value="<?php echo $lastName;?>" style="border-color:<?php echo $lastNameError?'red':'initial';?>"/></div>
+                <div id='year' class="form_input_container"><span>Major/Year: </span><input type="text" class= "form_input_container_input"  name="year" autocomplete="off" value="<?php echo $year;?>"/></div>
                 <h4>Tell us your email so we can reach you!</h4>
                 <div id='email' class="form_input_container"><span>Email:*</span><input type="email"  class= "form_input_container_input" name="email" autocomplete="off" value="<?php echo $email;?>"style="border-color:<?php echo $emailError?'red':'initial';?>"/></div>
                 <div id='phone' class="form_input_container"><span>Phone: (optional) </span><input type="phone"  class= "form_input_container_input" name="phone" autocomplete="off" value="<?php echo $phone;?>"style="border-color:<?php echo $phoneError?'red':'initial';?>"/></div>
                 <h4>What do you want to do for the Pioneer?</h4>   
-                <div id='position' class="form_input_container" <?php echo $positionError?"style='border: 2px ridge red'":"";?>><span style='display:block'>I want to be a (Pick 2 max) </span>
+                <div id='position' class="form_input_container" <?php echo $positionError?"style='border: 2px ridge red'":"";?>><span style='display:block'>I want to be a* (Pick 2 max) </span>
                                 <?php 
                                 foreach ($possiblepositions as $positionname) {
                                     $positionname_search = preg_replace('/\s+/','_', $positionname);
@@ -135,11 +171,10 @@ if (isset($_POST['newSignup'])) {
                 <div id='attachments' class="form_input_container"><span>Please upload samples of previous work, if any.</span>   <input class= "form_input_container_input"  type="file" name ="attachments[]" multiple="" /> </div>
                 <div id='indesign_experience' class="form_input_container"><input type="checkbox" name ="indesign_experience" class= "form_input_container_input"  /> <span>Have you worked with InDesign before?</span></div>
                 <div id='htmlcss_experience' class="form_input_container"><input type="checkbox" name ="htmlcss_experience" class= "form_input_container_input"  /> <span>Do you have experience with HTML/CSS? </span> </div>
-                <div id='selfstory' class="form_input_container"><span>Tell us something cool about yourself!</span><textarea class= "form_input_container_input"  name="selfstory" style="border-color:<?php echo $selfstoryError?'red':'initial';?>"/><?php echo $selfstoryError;?></textarea></div>
+                <div id='selfstory' class="form_input_container"><span>Tell us something cool about yourself!</span><textarea class= "form_input_container_input"  name="selfstory" style="border-color:<?php echo $selfstoryError?'red':'initial';?>"/><?php echo $selfstory;?></textarea></div>
                 <div id='submit' class="form_input_container" style="text-align: right; padding-top: 10px;"> <input type="submit" name ="submit" value="Submit" class="form_input form_submit_input submit_btn"/></div>
         </div>
     </form>
-    <div>
         
 </div>
     <script>

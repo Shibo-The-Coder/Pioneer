@@ -31,4 +31,5 @@ if ($user->isLoggedIn == true && isset($_POST['emailSignupsButton'])) {
                 <input type="submit" value="Email all signed up students!" name="emailSignupsButton"/>
             </form>
         </div>
-        </div> <?php } ?>
+        </div> 
+    <?php } 

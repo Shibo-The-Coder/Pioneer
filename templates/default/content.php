@@ -3,6 +3,8 @@
     if ($typeOfRequest == "home") {
         echo translateHomePage();
     } elseif($typeOfRequest == "signup"){
+        $signupID = $URLData['signup'][2];
+        $signuptoken = $URLData['signup'][1];
         include TEMPLATE_PATH."signup.php";
     } elseif($typeOfRequest == "contactus") {
         include_once TEMPLATE_PATH.'/contactus.php';

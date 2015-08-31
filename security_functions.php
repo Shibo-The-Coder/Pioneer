@@ -42,6 +42,9 @@ function file_upload($inputname, $dir, $formtoken = ""){
         $numfiles = count($_FILES[$inputname]['name']);
         for ($x = 0; $x < $numfiles; $x++) {
                 $file_tempdir = $_FILES[$inputname]['tmp_name'][$x];
+                if ($file_tempdir == "") {
+                    return false;
+                }
                 $file_name = $_FILES[$inputname]['name'][$x];
                 $target_dir = UPLOAD_PATH."/".$dir."/";
                 $fileinfo = pathinfo($file_name);

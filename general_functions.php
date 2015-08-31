@@ -147,6 +147,9 @@ function getURLTypeFromURI()
         case 'contactus' :
             return ['contactus' => $url_parts];
         case 'signup' :
+            while (count($url_parts) < 4) { //Normalize the array
+                $url_parts[] = null;
+            }
             return ['signup' => $url_parts];
         default :
             break;
