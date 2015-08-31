@@ -303,8 +303,9 @@ footer{
     cursor:default;
     font-family: helvetica, sans-serif;
 }
-#newSignup{text-align: left;position:relative;left:30px;}
-#newSignup>#basicinfo{position:relative;left:-40px;}
+
+/*SIGNUP PAGE*/
+
 #stockphoto{
     width:40%;
     float:left;
@@ -322,26 +323,32 @@ footer{
 #signup > h1{
     height:60px;
 }
-#basicinfo > tbody > tr> td{
-    font-size: 20px;
+#basicinfo > .form_input_container{
+    margin-bottom: 15px;
 }
-#basicinfo > tbody > tr> td> input{
-height:30px;    
+#basicinfo >  h4{
+    color: #009900;
+}
+#basicinfo > .form_input_container,#basicinfo > .form_input_container>input, #basicinfo > .form_input_container>textarea{
 font-size:25px;
-padding:1px;
 color: #24486D;
+opacity: 0.5;
 }
-#basicinfo > tbody > tr:nth-child(5) > td:nth-child(2) > select {
-    height:30px;
-    width:321px;
-    color: #24486D;
-    font-weight: bold;
-    font-size:20px;
+#basicinfo > .form_input_container:hover, #basicinfo > .form_input_container>input:hover, #basicinfo > .form_input_container>textarea:hover, #basicinfo > #submit{
+    opacity: 1.0;
 }
-#basicinfo > tbody > tr> td > .submit_btn{
+#basicinfo > .form_input_container>input:focus, #basicinfo > .form_input_container>textarea:focus{
+    background-color: pink;
+}
+#basicinfo > .form_input_container>textarea{
+    display:block;
+    width:100%;
+}
+#basicinfo > #submit > input{
     color:#24486D;
     font-weight: bold;
     font-size: 16px;
     height:35px;
     box-shadow: #24486D 0px 0px 10px;
+    opacity: 1.0;
 }

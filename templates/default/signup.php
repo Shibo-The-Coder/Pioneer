@@ -1,11 +1,11 @@
-<?php 
+<?php
 //Config
 define("SIGNUP_MAX_POSITIONS", 2);
 $possiblepositions = ["writer", "photographer", "copyeditor", "layout editor", "public relations","web developer"];
-$firstName = isset($_POST['firstName'])? $_POST['firstName']:""; 
-$lastName = isset($_POST['lastName'])? $_POST['lastName']:""; 
-$email = isset($_POST['email'])? $_POST['email']:""; 
-$phone =isset($_POST['phone'])? $_POST['phone']:""; 
+$firstName = isset($_POST['firstName'])? $_POST['firstName']:"";
+$lastName = isset($_POST['lastName'])? $_POST['lastName']:"";
+$email = isset($_POST['email'])? $_POST['email']:"";
+$phone =isset($_POST['phone'])? $_POST['phone']:"";
 $position = [];
     foreach ($possiblepositions as $positionname) {
         $positionname = preg_replace('/\s+/','_', $positionname);
@@ -65,10 +65,30 @@ if (isset($_POST['newSignup'])) {
             if (isset($_FILES['attachments']) && count($_FILES['attachments'])>0) {
                 $attachments = file_upload("attachments", "signup_attachments",$formtoken);
             }
-            add_table_signup($firstName, $lastName, $email, $phone, $position,$whyinterested,$previousexperience,$indesign_experience,$htmlcss_experience,$selfstory,$attachments,$formtoken);
+            $returning_user = get_table_signup_byEmail($email);
+            if ($returning_user){
+                $ID = $returning_user[0]['ID'];
+                $fields =["firstName",
+        "lastName", 
+        "email", 
+        "phone", 
+        "position", 
+        "whyinterested", 
+        "previousexperiences",
+        "indesign_experience", 
+        "htmlcss_experience",
+        "selfstory",
+        "attachments",
+        "token"];
+                $fieldValues = [$firstName, $lastName, $email, $phone, $position,$whyinterested,$previousexperience,$indesign_experience,$htmlcss_experience,$selfstory,$attachments,$formtoken];
+                update_table_signup_byID($ID, $fields, $fieldValues);
+            $submit_message = "Thanks! Your information has been updated!";
+            } else{            
+                add_table_signup($firstName, $lastName, $email, $phone, $position,$whyinterested,$previousexperience,$indesign_experience,$htmlcss_experience,$selfstory,$attachments,$formtoken);
+            $submit_message = "Thanks! We will contact you soon!";
+            }
             $user = get_table_signup_byToken($formtoken);
             signup_complete_email($formtoken, $user[0]['ID'], $firstName, $email);
-            $submit_message = "Thanks!";
         } else {
             $submit_message = "Thanks, we've already saved your registration information!";
         }
@@ -87,37 +107,69 @@ if (isset($_POST['newSignup'])) {
     <img src="<?php echo SITEURL."stock.jpg";?>">
 </div>
 <div id="signup">
-    <h1>Be a part of Pioneer!</h1>
+    <h1 style='margin-bottom: -15px;'>Be a part of Pioneer!</h1>
     <form id="newSignup" method="POST" enctype="multipart/form-data" action="<?php echo SITEURL."signup/confirm";?>">
-        <input type="hidden" name = "newSignup" value = 'newSignup'/> 
-        <h3>Basic Information:</h3>
+        <input type="hidden" name = "newSignup" value = 'newSignup'/>
         <?php echo $confirm?"<p style='color:red;'>".$submit_message."</p>":""; ?>
-        <table id="basicinfo">
-            <tr><td>First Name:*</td><td><input type="text" name="firstName" autocomplete="off" value="<?php echo $firstName;?>" style="border-color:<?php echo $firstNameError?'red':'initial';?>"/></td></tr>
-            <tr><td>Last Name:*</td><td><input type="text" name="lastName" autocomplete="off" value="<?php echo $lastName;?>" style="border-color:<?php echo $lastNameError?'red':'initial';?>"/></td></tr>
-            <tr><td>Email:*</td><td><input type="email" name="email" autocomplete="off" value="<?php echo $email;?>"style="border-color:<?php echo $emailError?'red':'initial';?>"/></td></tr>
-            <tr><td>Phone:</td><td><input type="phone" name="phone" autocomplete="off" value="<?php echo $phone;?>"style="border-color:<?php echo $phoneError?'red':'initial';?>"/></td></tr>
-                    <tr><td>I want to be a (Pick 2 max)</td><td <?php echo $positionError?"style='border: 2px ridge red'":"";?>>
+        <div id="basicinfo">
+                <h4>What's your name?</h4> 
+                <div id='firstName' class="form_input_container"><span>First Name:*</span> <input type="text" class= "form_input_container_input" name="firstName" autocomplete="off" value="<?php echo $firstName;?>" style="border-color:<?php echo $firstNameError?'red':'initial';?>"/></div>
+                <div id='lastName' class="form_input_container"><span>Last Name:*</span><input type="text" class= "form_input_container_input"  name="lastName" autocomplete="off" value="<?php echo $lastName;?>" style="border-color:<?php echo $lastNameError?'red':'initial';?>"/></div>
+                <h4>Tell us your email so we can reach you!</h4>
+                <div id='email' class="form_input_container"><span>Email:*</span><input type="email"  class= "form_input_container_input" name="email" autocomplete="off" value="<?php echo $email;?>"style="border-color:<?php echo $emailError?'red':'initial';?>"/></div>
+                <div id='phone' class="form_input_container"><span>Phone: (optional) </span><input type="phone"  class= "form_input_container_input" name="phone" autocomplete="off" value="<?php echo $phone;?>"style="border-color:<?php echo $phoneError?'red':'initial';?>"/></div>
+                <h4>What do you want to do for the Pioneer?</h4>   
+                <div id='position' class="form_input_container" <?php echo $positionError?"style='border: 2px ridge red'":"";?>><span style='display:block'>I want to be a (Pick 2 max) </span>
                                 <?php 
                                 foreach ($possiblepositions as $positionname) {
                                     $positionname_search = preg_replace('/\s+/','_', $positionname);
-                                    echo "<input type='checkbox' name='$positionname' ";
+                                    echo "<input  class= 'form_input_container_input'  type='checkbox' name='$positionname' ";
                                     echo array_search($positionname_search, $position)!==false?"checked ":"";
                                     echo ">".  ucwords($positionname)."<br>";
                                 }
                                 ?>
                             </select>
-                </td></tr>
-                    <tr><td>Why do you want to join the Pioneer?*</td><td><textarea name="whyinterested" style="border-color:<?php echo $whyinterestedError?'red':'initial';?>"/><?php echo $whyinterested;?></textarea></td></tr>
-                    <tr><td>What previous experience do you have with a publication? (Not needed to apply but will be considered)</td><td><textarea name="previousexperience" style="border-color:<?php echo $previousexperienceError?'red':'initial';?>"/><?php echo $previousexperience;?></textarea></td></tr>
-                    <tr><td>Please upload samples of previous work, if any.</td><td>   <input type="file" name ="attachments[]" multiple="" /> </td></tr>
-                    <tr><td></td><td style="">   <input type="checkbox" name ="indesign_experience" /> Do you have experience with Indesign? </td></tr>
-                    <tr><td></td><td style="" >   <input type="checkbox" name ="htmlcss_experience" /> Do you have experience with HTML/CSS? </td></tr>
-                    
-                    <tr><td>Tell us something cool about yourself!</td><td><textarea name="selfstory" style="border-color:<?php echo $selfstoryError?'red':'initial';?>"/><?php echo $selfstoryError;?></textarea></td></tr>
-                    <tr><td style="text-align: right; padding-top: 10px;" colspan="2">    <input type="submit" name ="submit" value="Submit" class="form_input form_submit_input submit_btn"/></td></tr>
-        </table>
+                </div>
+                <div id='whyinterested' class="form_input_container"><span>Why do you want to join the Pioneer?*</span><textarea class= "form_input_container_input"  name="whyinterested" style="border-color:<?php echo $whyinterestedError?'red':'initial';?>"/><?php echo $whyinterested;?></textarea></div>
+                <div id='previousexperiences' class="form_input_container"><span>What previous experience do you have with a publication? (Not needed to apply but will be considered) </span><textarea name="previousexperience"  class= "form_input_container_input" style="border-color:<?php echo $previousexperienceError?'red':'initial';?>"/><?php echo $previousexperience;?></textarea></div>
+                <div id='attachments' class="form_input_container"><span>Please upload samples of previous work, if any.</span>   <input class= "form_input_container_input"  type="file" name ="attachments[]" multiple="" /> </div>
+                <div id='indesign_experience' class="form_input_container"><input type="checkbox" name ="indesign_experience" class= "form_input_container_input"  /> <span>Have you worked with InDesign before?</span></div>
+                <div id='htmlcss_experience' class="form_input_container"><input type="checkbox" name ="htmlcss_experience" class= "form_input_container_input"  /> <span>Do you have experience with HTML/CSS? </span> </div>
+                <div id='selfstory' class="form_input_container"><span>Tell us something cool about yourself!</span><textarea class= "form_input_container_input"  name="selfstory" style="border-color:<?php echo $selfstoryError?'red':'initial';?>"/><?php echo $selfstoryError;?></textarea></div>
+                <div id='submit' class="form_input_container" style="text-align: right; padding-top: 10px;"> <input type="submit" name ="submit" value="Submit" class="form_input form_submit_input submit_btn"/></div>
+        </div>
     </form>
     <div>
         
 </div>
+    <script>
+        $("#firstName>input").focus().css('opacity', '1').parent(this).css('opacity', '1');
+  
+    $("input").focus(function(){
+  $(this).parent(this).css('opacity', '1');
+  $(this).css('opacity', '1');
+}).blur(function(){
+  $(this).css('opacity', '0.5');
+  $(this).parent(this).css('opacity', '0.5').hover(function(){$(this).css('opacity','1.0');}, function(){$(this).css('opacity', '0.5');});
+});
+ $("textarea").focus(function(){
+  $(this).parent(this).css('opacity', '1');
+  $(this).css('opacity', '1');
+}).blur(function(){
+  $(this).css('opacity', '0.5');
+  $(this).parent(this).css('opacity', '0.5').hover(function(){$(this).css('opacity','1.0');}, function(){$(this).css('opacity', '0.5');});
+});
+
+$(document).keydown(function(e) {
+    switch(e.which) {
+        case 38: // up
+        $(':focus').closest(".form_input_container").prevAll().find(".form_input_container_input").focus();
+        break;
+        case 40: // down
+        $(':focus').closest(".form_input_container").next(".form_input_container:not(h4)").find(".form_input_container_input").focus();
+        break;
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+    </script>
